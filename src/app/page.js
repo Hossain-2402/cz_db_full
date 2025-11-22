@@ -1,20 +1,21 @@
 "use client";
+
 import {useState} from "react";
 import { UploadButton } from "@/utils/uploadthing";
 import "./Home.css";
-import db from "./firebase";
-import firebase from "firebase/compat/app";
 import { v4 as uuidv4 } from 'uuid';
 
+import { db_2 } from "./firebase_realtime.js";
+import { ref, onValue, set, update, remove } from "firebase/database";
+
+
 export default function Home() {
-
-  const [image,setImage] = useState();
-  const [first_image,set_first_image] = useState();
-  const [second_image,set_second_image] = useState();
-  const [third_image,set_third_image] = useState();
-  const [forth_image,set_forth_image] = useState();
-
-
+const [image, setImage] = useState(null);
+const [first_image, set_first_image] = useState(null);
+const [second_image, set_second_image] = useState(null);
+const [third_image, set_third_image] = useState(null);
+const [forth_image, set_forth_image] = useState(null);
+  
   const [productName,setProductName] = useState("");
   const [productPrice,setProductPrice] = useState("");
   const [productDetail,setProductDetail] = useState("");
@@ -37,25 +38,51 @@ export default function Home() {
   }
 
   const add_new_product_to_db = ()=>{
+    if(productName === "" || productPrice === "" || productDetail === "" || productCategory === ""){
+	alert("Enter all the fields");
+	return;
+    }
     const unique_id = uuidv4();
+    //
+    // db.collection('products').add(
+    //   {
+    //     product_name : productName,
+    //     product_price : productPrice,
+    //     product_detail :productDetail,
+    //     product_catefory: productCategory,
+    //     productId: unique_id,
+    //     leading_image : image,
+    //     first_image : first_image,
+    //     second_image : second_image,
+    //     third_image : third_image,
+    //     forth_image : forth_image,
+    //     quantity : 1,
+    //     sizes : "S",
+    //     timestamp : firebase.firestore.FieldValue.serverTimestamp()
+    // }) ;
+    //
 
-    db.collection('products').add(
-      {
-        product_name : productName,
-        product_price : productPrice,
-        product_detail :productDetail,
-        product_catefory: productCategory,
-        productId: unique_id,
-        leading_image : image,
-        first_image : first_image,
-        second_image : second_image,
-        third_image : third_image,
-        forth_image : forth_image,
-        quantity : 1,
-        sizes : "S",
-        timestamp : firebase.firestore.FieldValue.serverTimestamp()
-    }) ;
-    
+
+		const data = {
+  product_name : "[ TEST ]",
+  product_price : productPrice || "",
+  product_detail : productDetail || "",
+  product_category: productCategory || "",
+  productId: unique_id,
+
+  leading_image : image ?? null,
+  first_image : first_image ?? null,
+  second_image : second_image ?? null,
+  third_image : third_image ?? null,
+  forth_image : forth_image ?? null,
+
+  quantity : 1,
+  sizes : "S",		};
+
+
+		set(ref(db_2, "messages/" + unique_id), data);
+
+
     setProductName("");
     setProductPrice("");
     setProductDetail("");
@@ -72,7 +99,7 @@ export default function Home() {
     <div className="Home">
       <div className="add_new_item_area">
         <div className="leading_image">
-          <img src={image} alt="" className="preview_leading_image"/>
+          <img src={image || undefined} alt="" className="preview_leading_image"/>
            <UploadButton
              content={{
                 button({ ready }) {
@@ -98,7 +125,7 @@ export default function Home() {
         <div className="supporting_images_area">
           <div className="first_image">
             
-           <img src={first_image} alt="" className="preview_leading_image"/>
+           <img src={first_image || undefined} alt="" className="preview_leading_image"/>
            <UploadButton
               content={{
                 button({ ready }) {
@@ -124,7 +151,7 @@ export default function Home() {
           </div>
           <div className="second_image">
             
-           <img src={second_image} alt="" className="preview_leading_image"/>
+           <img src={second_image || undefined} alt="" className="preview_leading_image"/>
            <UploadButton
               content={{
                 button({ ready }) {
@@ -150,7 +177,7 @@ export default function Home() {
           </div>
           <div className="third_image">
             
-           <img src={third_image} alt="" className="preview_leading_image"/>
+           <img src={third_image || undefined} alt="" className="preview_leading_image"/>
            <UploadButton
               content={{
                 button({ ready }) {
@@ -176,7 +203,7 @@ export default function Home() {
           </div>
           <div className="forth_image">
             
-           <img src={forth_image} alt="" className="preview_leading_image"/>
+           <img src={forth_image || undefined} alt="" className="preview_leading_image"/>
            <UploadButton
               content={{
                 button({ ready }) {
