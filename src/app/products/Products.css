@@ -1,0 +1,294 @@
+body{
+	overflow-x:hidden;
+
+}
+
+
+.header_text{
+	width:40vw;
+	padding:2vh 2vw;
+	margin:5vh 0 25vh 50%;
+	transform:translate(-50%,0);
+	border-left:10px solid #E9BD42;
+	border-right:10px solid #E9BD42;
+	border-radius:10px;
+	font-family:verdana;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+
+.products_area{
+	height:auto;
+	width:98vw;
+	margin:0 0 0 50%;
+	transform: translate(-50%,0);
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 5vw 2vw;
+	perspective: 50em;
+}
+
+.product{
+	height:70vh;
+	border-radius: 10px;
+	float:left;
+	cursor: pointer;
+	display: flex;
+	gap:1vh;
+	flex-direction: column;
+	text-decoration: none;
+	color:black;
+	transition: .4s;
+}
+
+.product:hover{
+	transform:scale(1.05);
+
+}
+
+.image{
+	flex:5;
+	height:20vh;
+	width:100%;
+	background-position: center center;
+	transition: .4s;
+	background-size: 100%;
+}
+
+.product_name{
+	flex:.2;
+	width:20vw;
+	padding:2vh 0 2vh 0;
+	font-family: "Anton SC", sans-serif;
+	float: left;
+	transition: .4s;
+}
+
+.price{
+	flex:.2;
+	width:20vw;
+	font-family: verdana;
+	float: left;
+	font-size: 25px ;
+	font-weight: 525;
+	transition: .4s;
+}
+
+.edit_button{
+	position:relative;
+	background:black;
+	color:white;
+	height:7vh;
+	width:7vh;
+	border-radius:35%;
+	border-bottom-right-radius:0;
+	bottom:95%;
+	left:-5%;
+	box-shadow:0 0 10px black;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+
+
+.update_screen{
+	position:fixed;
+	height:95vh;
+	width:95vw;
+	left:50%;
+	transform:translate(-50%,0);
+	background:rgba(255,255,255,0.5);
+	backdrop-filter:blur(25px);
+	border-radius:10px;
+	box-shadow:0 0 100px black;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	z-index:100;
+	transition:0.4s;
+}
+
+.exit_update_button{
+	position:relative;
+	background:black;
+	color:white;
+	height:7vh;
+	width:7vh;
+	border-radius:50%;
+	top:2vh;
+	right:2vh;
+	float:right;
+	box-shadow:0 0 25px black;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	cursor:pointer;
+}
+
+.add_new_item_area{
+  height:100vh;
+  width:95vw;
+  border-radius: 10px;
+  padding:2vh 0;
+  margin:10vh 0 0 50%;
+  transform: translate(-50%,0);
+  display: flex;
+  flex-direction: column;
+  gap:2vh;
+}
+
+.leading_image{
+  flex:5;
+  width:50%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+}
+
+.preview_leading_image{
+  position: absolute;
+  height:100%;
+  width:100%;
+  border-radius: 10px;
+}
+
+.upload_btn{
+  position: absolute;
+  height:50%;
+  width:50%;
+  border-radius: 10px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+}
+
+.supporting_images_area{
+  flex:3;
+  width:90%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  display: flex;
+  gap:2vw;
+  padding:1vh 0;
+}
+
+.first_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.supporting_image_upload{
+  height:50%;
+  width:50%;
+}
+
+.second_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.third_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.forth_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+
+.input{
+  flex:1;
+  width:70%;
+  outline: none;
+  padding:1vh 2vw;
+  border:none;
+  font-family: verdana;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;  
+
+}
+
+.update_item_button{
+  flex:1;
+  width:20%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: verdana;
+  cursor: pointer;
+}
+
+
+
+
+@media(max-width:991px){
+
+	.products_area{
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 4vw 4vw;
+	}
+	.product{
+		height:50vh;
+		padding:1.5vw 1.5vw 2vh 1.5vw;
+	}
+
+	.image{
+		background-size: 100%;
+		background-position: center center;
+	}
+
+	.product_name{
+		width:100%;
+		font-size: 12px;
+	}
+
+	.price{
+		width:100%;
+		font-size: 20px;
+	}
+	
+
+	.add_new_item_area{
+		height: 80vh;
+	}
+
+	.leading_image{
+		width:70%;
+	}
+
+	.supporting_images_area{
+		width:100%;
+	}
+
+	.update_item_button{
+		width: 50%;
+	}
+
+	.supporting_image_upload{
+		height:60%;
+		width:100%;
+		overflow: hidden;
+	}
+}

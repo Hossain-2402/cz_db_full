@@ -1,0 +1,159 @@
+body{
+  background:#f9f9f9;
+}
+
+.add_new_item_area{
+  height:100vh;
+  width:95vw;
+  border-radius: 10px;
+  padding:2vh 0;
+  margin:10vh 0 0 50%;
+  transform: translate(-50%,0);
+  display: flex;
+  flex-direction: column;
+  gap:2vh;
+}
+
+.leading_image{
+  flex:5;
+  width:50%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+}
+
+.preview_leading_image{
+  position: absolute;
+  height:100%;
+  width:100%;
+  border-radius: 10px;
+}
+
+.upload_btn{
+  position: absolute;
+  height:50%;
+  width:50%;
+  border-radius: 10px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+}
+
+.supporting_images_area{
+  flex:3;
+  width:90%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  display: flex;
+  gap:2vw;
+  padding:1vh 0;
+}
+
+.first_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.supporting_image_upload{
+  height:50%;
+  width:50%;
+}
+
+.second_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.third_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.forth_image{
+  flex:1;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+
+.input{
+  flex:1;
+  width:70%;
+  outline: none;
+  padding:1vh 2vw;
+  border:none;
+  font-family: verdana;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;  
+
+}
+
+.add_item_button{
+  flex:1;
+  width:20%;
+  margin: 0 0 0 50%;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: verdana;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:991px){
+  .add_new_item_area{
+    height: 80vh;
+  }
+
+  .leading_image{
+    width:70%;
+  }
+
+  .supporting_images_area{
+    width:100%;
+  }
+
+  .add_item_button{
+    width: 50%;
+  }
+
+  .supporting_image_upload{
+    height:60%;
+    width:100%;
+    overflow: hidden;
+  }
+}
