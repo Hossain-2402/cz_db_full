@@ -14,6 +14,7 @@ import { Edit, Edit2, Edit3, Pen } from "lucide-react";
 export default function Products() {
 
 const [position_of_update_screen,set_position_of_update_screen] = useState("-200vh");
+const [position_of_delete_screen,set_position_of_delete_screen] = useState("-200vh");
 
 const [image, setImage] = useState(null);
 const [first_image, set_first_image] = useState(null);
@@ -27,6 +28,13 @@ const [forth_image, set_forth_image] = useState(null);
   const [productCategory,setProductCategory] = useState("");
 
   const [productID,setProductID] = useState("");
+
+
+  const [in_button_color,set_in_button_color] = useState("white");
+  const [out_button_color,set_out_button_color] = useState("none");
+  const [instock_button_background_color,set_instock_button_background_color] = useState("grey");
+  const [stock_status,set_stock_status] = useState("");
+
 
 
   const handle_product_name = (e)=>{
@@ -105,15 +113,11 @@ const [forth_image, set_forth_image] = useState(null);
 	    return;
 	  }
 
-	  const sorted = Object.entries(snapshot.val())
-	    .sort((a, b) => (a[0] < b[0] ? 1 : -1))  // descending key order
-	    .map(([id, value]) => ({
-	      id,
-	      ...value
-	    }));
+  const newestFirst = Object.entries(snapshot.val())
+    .map(([id, value]) => ({ id, ...value }))
+    .sort((a, b) => b.createdAt - a.createdAt) // ✅ newest on top
 
-	  setProducts(sorted);
-	});
+  setProducts(newestFirst);	});
 	
   },[]);
 
@@ -136,7 +140,18 @@ const [forth_image, set_forth_image] = useState(null);
 		setProductCategory(item.category);
 
 		setProductID(item.productId);
+		set_stock_status(item.stock_status);
 
+		if(item.stock_status === "in"){
+			set_in_button_color("none");
+			set_out_button_color("white");
+			set_instock_button_background_color("#2ecc71");
+		}else{
+			set_in_button_color("white");
+			set_out_button_color("none");
+			set_instock_button_background_color("grey");
+		}
+		
 		
 
 	}
@@ -145,6 +160,22 @@ const [forth_image, set_forth_image] = useState(null);
 		set_position_of_update_screen("-200vh");
 	}
 
+	const toggle_instock_button = ()=>{
+		if(in_button_color === "white"){
+			set_in_button_color("none");
+			set_out_button_color("white");
+			set_instock_button_background_color("#2ecc71");
+			set_stock_status("in");
+		}else{
+			
+			set_in_button_color("white");
+			set_out_button_color("none");
+			set_instock_button_background_color("grey");
+			set_stock_status("out");
+		}
+	}
+
+
 	const update_product_to_db = ()=>{
 	 
 		const data = {
@@ -152,22 +183,34 @@ const [forth_image, set_forth_image] = useState(null);
 			product_price : productPrice || "",
 			product_detail : productDetail || "",
 			category: productCategory || "",
-			productid: productID,
+			productId: productID,
 
-			leading_image : image ?? null,
-			first_image : first_image ?? null,
-			second_image : second_image ?? null,
-			third_image : third_image ?? null,
-			forth_image : forth_image ?? null,
-
+			leading_image : image ,
+			first_image : first_image ,
+			second_image : second_image ,
+			third_image : third_image ,
+			forth_image : forth_image ,
+			stock_status : stock_status,	
 			quantity : 1,
-			sizes : "s",
+			sizes : "s"
 		};
 
 
 		update(ref(db_2, "messages/" + productID), data);
+		close_update_screen();
 	}
 
+
+	
+	const close_delete_screen = ()=>{
+		set_position_of_delete_screen("-200vh");
+	}
+
+	const delete_product_from_db = ()=>{
+		remove(ref(db_2, "messages/" + productID));
+		close_delete_screen();
+		close_update_screen();
+	}
 
   return (
 	<div className="Home">
@@ -329,8 +372,28 @@ const [forth_image, set_forth_image] = useState(null);
 			<textarea type="text" placeholder="Enter Image Description" className="input " onChange={(e)=>{handle_product_detail(e)}} value={productDetail}></textarea>
 			<input type="text" placeholder="Enter Product Category" className="input " onChange={(e)=>{handle_product_category(e)}} value={productCategory} />
 
+
+			<div className="instock_toggle_area">
+				<div className="instock_text">Stock : </div>
+				<div style={{ background: instock_button_background_color }} className="instock_button" onClick={()=>{ toggle_instock_button() }}>
+					<div style={{ background: in_button_color }} className="in_button"></div>
+					<div style={{ background: out_button_color }} className="out_button"></div>
+				</div>
+			</div>
+
+
+
+
 			<div className="update_item_button" onClick={()=>{ update_product_to_db()  }}>Update Product</div>
+			
 		      </div>
+			<div className="delete_item_button" onClick={()=>{set_position_of_delete_screen("2.5vh");}}>Delete Product</div>
+		</div>
+
+		<div style={{top:position_of_delete_screen}} className="delete_screen">
+			<div className="exit_delete_button" onClick={()=>{ close_delete_screen() }}>X</div>	
+			<p className="alert_text">Are you sure? </p>
+		     	<div className="delete_button" onClick={()=>{ delete_product_from_db()  }}>Delete</div>
 		</div>
 
 

@@ -70,14 +70,16 @@ const [forth_image, set_forth_image] = useState(null);
   category: productCategory || "",
   productId: unique_id,
 
-  leading_image : image ?? null,
-  first_image : first_image ?? null,
-  second_image : second_image ?? null,
-  third_image : third_image ?? null,
-  forth_image : forth_image ?? null,
-
+  leading_image : image ?? "",
+  first_image : first_image ?? "",
+  second_image : second_image ?? "",
+  third_image : third_image ?? "",
+  forth_image : forth_image ?? "",
+  stock_status: "in",
   quantity : 1,
-  sizes : "S",		};
+  sizes : "S",
+
+  createdAt: Date.now()	};
 
 
 		set(ref(db_2, "messages/" + unique_id), data);

@@ -1,3 +1,33 @@
 body{
   background:#f9f9f9;
 }
+
+
+.button_container{
+	width:60vw;
+	padding:5vh 2vw;
+	margin:2vh 0 0 50%;
+	transform:translate(-50%,0);
+	border-bottom:3px solid grey;
+	display:flex;
+	gap:2vw;
+}
+
+
+.button{
+	flex:1;
+	border-radius:10px;
+	padding:2vh 2vw;
+	box-shadow:0 0 10px black;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	cursor:pointer;
+}
+
+
+
+
+@media(max-width:991px){
+
+}
